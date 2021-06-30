@@ -70,6 +70,7 @@ jal loop3
 end:
 # send s7 to led 
 sw s7,0x60(s0)
+sw s7,0x0(x0)
 loopread:
 # read sw 21,21,23 again 
 lw s2,0x72(s0)
