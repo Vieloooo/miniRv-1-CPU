@@ -91,6 +91,15 @@
       1. imm
       2. rf.data2
       3. alu.b.sel
+         1. optcode:
+            1. 0	add
+            2. 1	sub
+            3. 2 	and
+            4. 3	or
+            5. 4	xor
+            6. 5	sll
+            7. 6	srl
+            8. 7	sra
    2. output : alu.b
 
 ## alu
@@ -118,8 +127,11 @@
 
 1. all comb
 2. input
-   1. addr from alu.c
-   2. wen from control init
-   3. w data from rf.data2
+
+   1. clk
+   2. addr from alu.c
+   3. wen from control init
+   4. w data from rf.data2
 3. output
+
    1. dram.data
