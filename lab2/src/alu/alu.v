@@ -2,11 +2,11 @@ module alu (
     input [31:0] data1,
     input [31:0] data2,
     input [2:0] alu_sel,
-    output [31:0] c
+    output reg [31:0] c
 );
-asll sll(data1,data2,sll_out);
-asrl srl(data1,data2,srl_out);
-asra sra(data1,data2,sra_out);
+sll asll(data1,data2,sll_out);
+srl asrl(data1,data2,srl_out);
+sra asra(data1,data2,sra_out);
 always @(*) begin
     case (alu_sel)
         0: c = (data1 + data2);

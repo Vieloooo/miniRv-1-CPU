@@ -8,15 +8,15 @@ module branch (
 always @(*) begin
     if(brun == 'b0)begin
         if (data1 == data2) breq = 'b1;
-        else if (data1 < data2) brlt = '1;
+        else if (data1 < data2) brlt = 'b1;
         else begin
             breq = 'b0;
             brlt = 'b0;
         end
     end else begin
-        if ((data1[31] xor data2[31])==0) begin
+        if ((data1[31] ^ data2[31])==0) begin
             if (data1 == data2) breq = 'b1;
-            else if (data1 < data2) brlt = '1;
+            else if (data1 < data2) brlt = 'b1;
             else begin
                 breq = 'b0;
                 brlt = 'b0;
