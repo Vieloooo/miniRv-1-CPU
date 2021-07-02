@@ -5,7 +5,7 @@ interface:
      1. type:r,i,i-shift,s,b,u,uj
         1. r  0
         2. i  1
-        3. Is 2(i- shift)
+        //3. Is 2(i- shift)
         4. s  3 (store)
         5. b  4
         6. u  5 (lui)
@@ -29,7 +29,7 @@ module immGen (
                      imm = {20'b0,ins[24:12]};
                 end
             end 
-            2: imm = {27'b0,ins[17:13]};
+            //2: imm = {27'b0,ins[17:13]};
             3:begin
                 if (ins[24] == 'b1)begin
                     imm = {20'hfffff,ins[24:18],ins[6:0]};

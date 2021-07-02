@@ -11,7 +11,9 @@ module control (
     output alua_sel,
     output alub_sel
 );
-// handle pc 
+// immediate vars
+reg rt,it,ut,ujt,st,sbt
+// handle pc sel 
     
     
 endmodule
