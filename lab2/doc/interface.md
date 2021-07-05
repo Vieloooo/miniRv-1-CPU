@@ -71,6 +71,7 @@
       1. pc+4	0
       2. alu		1
       3. dram.rd   >=2
+      4.  const 1    3
    2. pc+4
    3. aul.c
    4. dram.rd

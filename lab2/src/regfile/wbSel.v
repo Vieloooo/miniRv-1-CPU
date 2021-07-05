@@ -7,7 +7,8 @@ module wbSel (
 );
     assign wb_data = (wb_sel == 0) ? pc4 :
                      (wb_sel == 1) ? aluc:
-                     dram;
+                     (wb_sel == 2) ? dram:
+                     1;
 
 endmodule
 

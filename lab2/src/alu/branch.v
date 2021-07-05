@@ -7,16 +7,28 @@ module branch (
 );
 always @(*) begin
     if(brun == 'b0)begin
-        if (data1 == data2) breq = 'b1;
-        else if (data1 < data2) brlt = 'b1;
+        if (data1 == data2) begin
+            breq = 'b1;
+            brlt = 'b0;
+        end 
+        else if (data1 < data2) begin 
+            brlt = 'b1;
+            breq = 'b0;
+        end 
         else begin
             breq = 'b0;
             brlt = 'b0;
         end
     end else begin
         if ((data1[31] ^ data2[31])==0) begin
-            if (data1 == data2) breq = 'b1;
-            else if (data1 < data2) brlt = 'b1;
+            if (data1 == data2) begin
+                breq = 'b1;
+                brlt = 'b0;
+            end 
+            else if (data1 < data2) begin 
+                brlt = 'b1;
+                breq = 'b0;
+            end 
             else begin
                 breq = 'b0;
                 brlt = 'b0;
