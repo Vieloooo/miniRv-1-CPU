@@ -12,7 +12,7 @@ module control (
     output alub_sel
 );
 // immediate vars
-reg rt,it,ut,ujt,st,sbt
+reg rt,it,ut,ujt,st,sbt;
 // handle pc sel 
     
     
