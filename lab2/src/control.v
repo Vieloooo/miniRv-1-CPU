@@ -78,14 +78,16 @@ interface:
     end
     //handle wb_sel 
     always @(*) begin
-        if (type =='b101 || type == 'b110)  wb_sel = 'b1;
-        else if (type = 'b111) wb_sel = 'b0;
-        else begin
+        if (type =='b101 )wb_sel = 'b101;       // lui
+        else if(type == 'b110)  wb_sel = 'b1;   //auipc 
+        else if (type = 'b111 || type == 'b010) wb_sel = 'b0;     //jal,jalr
+        else if (type = 'b001 && ins[14:12]== 'b010) wb_sel = 'b10;      //lw
+        else begin                                          //slt,sltu
             if(ins[14:12]=='b010 || ins[14:12]=='b011)begin
                 if(brlt)    wb_sel = 'b11;
-                else        wb_sel = 'b01;
+                else        wb_sel = 'b100;
             end else begin
-                wb_sel = 'b00;
+                wb_sel = 'b1;
             end
         end
         
@@ -112,9 +114,9 @@ interface:
     //handle brun 
     always @(*) begin
         if(type == 'b0 || type == 'b1)begin
-            if (ins[14:12]== 'b011) brun = 'b1;
+            if (ins[14:12]== 'b011) brun = 'b1;     //sltu, sltiu
             else brun = 'b0;
-        end else if (type =='b011)begin
+        end else if (type =='b100)begin             // branch 
             if (ins[14:12]== 'b110 || ins[14:12]== 'b111) brun = 'b1;
             else brun = 'b0;
         end else brun = 'b0;
@@ -122,6 +124,35 @@ interface:
     end
     //handle alua_sel 
     always @(*) begin
-        if (type == 'b111 )
+        if (type == 'b111 || type == 'b110 ) alua_sel = 'b0;    //jalr , auipc pick pc 
+        else alua_sel = 'b1;
+    end
+
+    //handle alub_sel 
+    always @(*) begin
+        if(type == 'b0)alub_sel = 'b1;
+        else alub_sel = 'b0;
+    end
+    //handle alu_op 
+    always @(*) begin
+        if (type == 'b0)begin
+            if(ins[14:12] == 'b000 && ins[31:25]== 'b0100000) alu_op = 'b1;
+            else if (ins[14:12] == 'b111) alu_op = 2;
+            else if (ins[14:12] == 'b110) alu_op = 3; 
+            else if (ins[14:12] == 'b100) alu_op = 4;
+            else if (ins[14:12] == 'b001) alu_op = 5; 
+            else if (ins[14:12} == 'b101 && ins[31:25]== 'b0000000) alu_op = 6;
+            else if (ins[14:12} == 'b101 && ins[31:25]== 'b0100000) alu_op = 7;
+            else alu_op = 'b0;
+        end else if (type == 'b1)begin
+            if(ins[14:12] == 'b000 ) alu_op = 'b0;
+            else if (ins[14:12] == 'b111) alu_op = 2;
+            else if (ins[14:12] == 'b110) alu_op = 3; 
+            else if (ins[14:12] == 'b100) alu_op = 4;
+            else if (ins[14:12] == 'b001) alu_op = 5; 
+            else if (ins[14:12} == 'b101 && ins[31:25]== 'b0000000) alu_op = 6;
+            else if (ins[14:12} == 'b101 && ins[31:25]== 'b0100000) alu_op = 7;
+            else alu_op = 'b0;
+        end else alu_op = 'b0;
     end
 endmodule
