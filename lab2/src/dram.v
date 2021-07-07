@@ -33,7 +33,7 @@ module dram(
     .d(data),        // input wire [31 : 0] d
     .clk(clk),    // input wire clk
     .we(wen),      // input wire we
-    .qspo(rd)  // output wire [31 : 0] qspo
+    .spo(rd)  // output wire [31 : 0] qspo
     );
   
 endmodule

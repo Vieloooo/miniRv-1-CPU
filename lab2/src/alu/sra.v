@@ -1,7 +1,7 @@
 module sra (
     input [31:0] data,
     input [31:0] shiftBits,
-    output [31:0] sdata
+    output reg [31:0] sdata
 );
 always @(*) begin
     case (shiftBits[4:0])

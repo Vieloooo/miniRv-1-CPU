@@ -5,5 +5,5 @@ module pcSel (
     input [31:0] pc4,
     output [31:0]  npc
 );
-assign npc = pc_sel ? aluc:pc4;
+assign npc = (pc_sel=='b1) ? aluc:pc4;
 endmodule

@@ -31,7 +31,6 @@ interface:
         case (ins[6:0])
             'b0110011: type = 0;
             'b0010011: type = 1;
-            'b0010011: type = 1; 
             'b0000011: type = 1;
             'b1100111: type = 2;
             'b0100011: type = 3;

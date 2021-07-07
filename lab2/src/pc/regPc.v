@@ -4,8 +4,9 @@ module regPc(clk,en,rst,npc,apc);
     input rst;
     input [31:0] npc;
     output  [31:0] apc;
-    assign apc = pc;
     reg [31:0] pc='b0;
+    assign apc = pc;
+    
     always @(posedge clk) begin
         if (rst) pc = 0;
         else begin
