@@ -12,5 +12,6 @@
 
 ## log
 
-1. Irom sim err add by 4 
-2. fix dram config 
+1. Irom sim err add by 4
+2. fix dram config
+3. finish cu r/i ins test

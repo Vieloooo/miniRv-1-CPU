@@ -3,7 +3,7 @@ module control (
     input breq,
     input brlt,
     output reg pc_sel,
-    output reg [1:0] wb_sel,
+    output reg [2:0] wb_sel,
     output reg [2:0] imm_op,
     output reg rf_wen,
     output reg brun,
@@ -126,7 +126,7 @@ interface:
     end
     //handle alua_sel 
     always @(*) begin
-        if (type == 'b111 || type == 'b110 ) alua_sel = 'b0;    //jalr , auipc pick pc 
+        if (type == 'b111 || type == 'b110 || type == 'b100) alua_sel = 'b0;    //jalr , auipc, branch pick pc 
         else alua_sel = 'b1;
     end
 

@@ -6,7 +6,7 @@ module sim_pc_irom ();
   always #10 clk = ~clk;
   pcP4 apc4(pc,npc);
   irom sim_irom(pc,ins);
-  regPc apc(clk,en,npc,pc);
+  regPc apc(clk,en,'b0,npc,pc);
   pcControl apcc(ins,'b0,en);
   control acu(ins,'b0,'b0,pc_sel,wb_sel,imm_op,rf_en,burn,aluop,asel,bsel);
 endmodule
