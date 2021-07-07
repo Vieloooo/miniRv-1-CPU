@@ -4,6 +4,7 @@ module alu (
     input [2:0] alu_sel,
     output reg [31:0] c
 );
+wire [31:0] sll_out,srl_out,sra_out;
 sll asll(data1,data2,sll_out);
 srl asrl(data1,data2,srl_out);
 sra asra(data1,data2,sra_out);
