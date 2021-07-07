@@ -35,5 +35,5 @@ module dram(
     .we(wen),      // input wire we
     .spo(rd)  // output wire [31 : 0] qspo
     );
-  
+
 endmodule

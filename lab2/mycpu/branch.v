@@ -5,27 +5,15 @@ module branch (
     output reg breq,
     output reg brlt
 );
+
 always @(*) begin
-    if(brun == 'b0)begin
-        if (data1 == data2) begin
-            breq = 'b1;
-            brlt = 'b0;
-        end 
-        else if (data1 < data2) begin 
-            brlt = 'b1;
-            breq = 'b0;
-        end 
-        else begin
-            breq = 'b0;
-            brlt = 'b0;
-        end
-    end else begin
-        if ((data1[31] ^ data2[31])==0) begin
-            if (data1 == data2) begin
+    if(brun == 'b0)begin	//have signal 
+        if ((data1[31] ^ data2[31])==0) begin	// same 
+            if (data1[30:0] == data2[30:0]) begin
                 breq = 'b1;
                 brlt = 'b0;
             end 
-            else if (data1 < data2) begin 
+            else if (data1[30:0] < data2[30:0]) begin 
                 brlt = 'b1;
                 breq = 'b0;
             end 
@@ -40,7 +28,20 @@ always @(*) begin
             breq = 'b0;
             brlt = 'b0;
         end
-    end
+    end else begin		// no signal 
+	if (data1 == data2) begin
+            breq = 'b1;
+            brlt = 'b0;
+        end 
+        else if (data1 < data2) begin 
+            brlt = 'b1;
+            breq = 'b0;
+        end 
+        else begin
+            breq = 'b0;
+            brlt = 'b0;
+        end
+    end 
 end
     
 endmodule
