@@ -20,15 +20,15 @@ module immGen (
 );
     always @(*) begin
         case (im_op)
-            0:imm = 0;
-            1:begin
+            0:imm = 0;      //r
+            1:begin         //i
                 if (ins[24] == 'b1)begin
                     imm = {20'hfffff,ins[24:13]};
                 end else begin
                      imm = {20'b0,ins[24:12]};
                 end
             end 
-            //2: imm = {27'b0,ins[17:13]};
+            //2: imm = {27'b0,ins[17:13]}; s
             2:begin
                 if (ins[24] == 'b1)begin
                     imm = {20'hfffff,ins[24:18],ins[6:0]};
@@ -36,15 +36,15 @@ module immGen (
                      imm = {20'h0,ins[24:18],ins[6:0]};
                 end
             end 
-            3: begin
+            3: begin    //b
                 if (ins[24] == 'b1)begin
                     imm = {19'b1111111111111111111,ins[24],ins[0],ins[23:18],ins[4:1],1'b0};
                 end else begin
                     imm = {19'b0,ins[24],ins[0],ins[23:18],ins[4:1],1'b0};
                 end
             end
-            4:imm = {ins[24:5],12'b0};
-            5:begin
+            4:imm = {ins[24:5],12'b0};  //u
+            5:begin                     //j
                 if (ins[24] == 'b1)begin
                     imm = {11'b11111111111,ins[24],ins[12:5],ins[13],ins[23:14],1'b0};
                 end else begin

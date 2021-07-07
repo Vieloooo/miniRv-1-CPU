@@ -4,10 +4,6 @@
    1. interface doc
    2. data path
 2. 完成各个功能部件的实现
-   1. remain:
-      1. irom
-      2. reg files
-      3. dram
 3. 测试各个功能部件
 4. 检查功能部件的接口的正确性!!
 5. 完成控制部件
@@ -16,4 +12,5 @@
 
 ## log
 
-1. it seems that
+1. Irom sim err add by 4 
+2. fix dram config 

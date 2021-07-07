@@ -14,8 +14,8 @@
    ```
    input:
    1. pc_sel:(pc+4,alu.c)
-   2. pc+4
-   3. alu.c 
+   2. pc+4     0
+   3. alu.c    1
    output:
    1. npc
    ```
@@ -136,3 +136,33 @@
 3. output
 
    1. dram.data
+
+## control interface
+1. pcsel 
+   0  pc4/
+   1 aluc /
+2. wb_sel 
+   0  pc4/
+   1  aluc/
+   2  dram/
+   3  1/
+   4  0/
+3. imm_op
+     1. type:r,i,i-shift,s,b,u,uj
+        1. r  0
+        2. i  1
+        3. s  2 (store)
+        4. b  3
+        5. u  4 (lui)
+        6. uj 5 (jal)
+4. rf.wen 
+   0 read/
+   1 write /
+5. brun 
+   1 unsignal /
+6. alua_sel 
+   0 pc/
+   1 data1/
+7. alub_sel 
+   0 imm /
+   1 data2/
