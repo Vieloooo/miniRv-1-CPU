@@ -1,5 +1,4 @@
-// it seems that address in vivado divided by instructions 
-module sim_pc_irom ();
+module sim_control ();
   reg clk = 'b0;
   wire [31:0] pc,npc,ins;
   wire en;
@@ -8,5 +7,6 @@ module sim_pc_irom ();
   irom sim_irom(pc,ins);
   regPc apc(clk,en,npc,pc);
   pcControl apcc(ins,'b0,en);
-  control acu(ins,'b0,'b0,pc_sel,wb_sel,imm_op,rf_en,burn,aluop,asel,bsel);
+  control acu(ins,'b0,'b0);
+
 endmodule

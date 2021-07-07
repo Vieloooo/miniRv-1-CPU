@@ -71,7 +71,7 @@
       1. pc+4	0
       2. alu		1
       3. dram.rd   >=2
-      4.  const 1    3
+      4. const 1    3
    2. pc+4
    3. aul.c
    4. dram.rd
@@ -138,31 +138,43 @@
    1. dram.data
 
 ## control interface
-1. pcsel 
+
+1. pcsel
    0  pc4/
    1 aluc /
-2. wb_sel 
+2. wb_sel
    0  pc4/
    1  aluc/
    2  dram/
    3  1/
    4  0/
+   5  imm/
 3. imm_op
-     1. type:r,i,i-shift,s,b,u,uj
-        1. r  0
-        2. i  1
-        3. s  2 (store)
-        4. b  3
-        5. u  4 (lui)
-        6. uj 5 (jal)
-4. rf.wen 
+   1. type:r,i,i-shift,s,b,u,uj
+      1. r  0
+      2. i  1
+      3. s  2 (store)
+      4. b  3
+      5. u  4 (lui)
+      6. uj 5 (jal)
+4. rf.wen
    0 read/
    1 write /
-5. brun 
+5. brun
    1 unsignal /
-6. alua_sel 
+6. alua_sel
    0 pc/
    1 data1/
-7. alub_sel 
+7. alub_sel
    0 imm /
    1 data2/
+8. alu_op
+   0  add/
+   1  sub/
+   2  and/
+   3  or/
+   4  xor/
+   5  sll/
+   6  srl/
+   7  sra/
+9. dram_en 1 write 0 read

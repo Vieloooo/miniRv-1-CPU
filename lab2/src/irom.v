@@ -25,7 +25,7 @@ module irom(
     output [31:0] ins
     );
     prgrom irom (
-  .a(pc[13:0]),      // input wire [13 : 0] a
+  .a(pc[15:2]),      // input wire [13 : 0] a
   .spo(ins)  // output wire [31 : 0] spo
 );
 endmodule

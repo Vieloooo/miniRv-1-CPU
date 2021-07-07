@@ -3,13 +3,14 @@ module control (
     input breq,
     input brlt,
     output reg pc_sel,
-    output [1:0] wb_sel,
+    output reg [1:0] wb_sel,
     output reg [2:0] imm_op,
     output reg rf_wen,
     output reg brun,
     output reg [2:0] alu_op,
     output reg alua_sel,
-    output reg alub_sel
+    output reg alub_sel,
+    output wire dram_wen
 );
 // immediate vars
 reg [2:0] type;
@@ -47,18 +48,19 @@ interface:
             pc_sel = 'b1;
         end else if (type == 'b100)begin            // branch ins 
             case (ins[14:12])
-                'b000: begin                        //beq
-                    if(breq)    pc_sel = 1;
+                3'b000: begin                        //beq
+                    if(breq)    pc_sel = 'b1;
                     else        pc_sel = 'b0;
-                'b001:begin                         //bne
+                end
+                3'b001:begin                         //bne
                     if(breq)    pc_sel = 'b0;
                     else        pc_sel = 'b1;
                 end
-                'b100:begin                         //blt
+                3'b100:begin                         //blt
                     if(brlt)    pc_sel = 'b1;
                     else        pc_sel = 'b0;
                 end
-                'b110:begin                         //bltu
+                3'b110:begin                         //bltu
                     if(brlt)    pc_sel = 'b1;
                     else        pc_sel = 'b0;
                 end
@@ -66,7 +68,7 @@ interface:
                     if(brlt=='b0 && breq =='b0)    pc_sel = 'b1;    
                     else        pc_sel = 'b0;
                 end
-                'b111:begin                         //bgeu
+                3'b111:begin                         //bgeu
                     if(brlt=='b0 && breq =='b0)    pc_sel = 'b1;    
                     else        pc_sel = 'b0;
                 end
@@ -80,8 +82,8 @@ interface:
     always @(*) begin
         if (type =='b101 )wb_sel = 'b101;       // lui
         else if(type == 'b110)  wb_sel = 'b1;   //auipc 
-        else if (type = 'b111 || type == 'b010) wb_sel = 'b0;     //jal,jalr
-        else if (type = 'b001 && ins[14:12]== 'b010) wb_sel = 'b10;      //lw
+        else if (type == 'b111 || type == 'b010) wb_sel = 'b0;     //jal,jalr
+        else if (type == 'b001 && ins[14:12]== 'b010) wb_sel = 'b10;      //lw
         else begin                                          //slt,sltu
             if(ins[14:12]=='b010 || ins[14:12]=='b011)begin
                 if(brlt)    wb_sel = 'b11;
@@ -141,8 +143,8 @@ interface:
             else if (ins[14:12] == 'b110) alu_op = 3; 
             else if (ins[14:12] == 'b100) alu_op = 4;
             else if (ins[14:12] == 'b001) alu_op = 5; 
-            else if (ins[14:12} == 'b101 && ins[31:25]== 'b0000000) alu_op = 6;
-            else if (ins[14:12} == 'b101 && ins[31:25]== 'b0100000) alu_op = 7;
+            else if (ins[14:12] == 'b101 && ins[31:25]== 'b0000000) alu_op = 6;
+            else if (ins[14:12] == 'b101 && ins[31:25]== 'b0100000) alu_op = 7;
             else alu_op = 'b0;
         end else if (type == 'b1)begin
             if(ins[14:12] == 'b000 ) alu_op = 'b0;
@@ -150,9 +152,11 @@ interface:
             else if (ins[14:12] == 'b110) alu_op = 3; 
             else if (ins[14:12] == 'b100) alu_op = 4;
             else if (ins[14:12] == 'b001) alu_op = 5; 
-            else if (ins[14:12} == 'b101 && ins[31:25]== 'b0000000) alu_op = 6;
-            else if (ins[14:12} == 'b101 && ins[31:25]== 'b0100000) alu_op = 7;
+            else if (ins[14:12] == 'b101 && ins[31:25]== 'b0000000) alu_op = 6;
+            else if (ins[14:12] == 'b101 && ins[31:25]== 'b0100000) alu_op = 7;
             else alu_op = 'b0;
         end else alu_op = 'b0;
     end
+    //dram wen 
+    assign dram_wen = (type == 'b011) ? 1:0;
 endmodule
