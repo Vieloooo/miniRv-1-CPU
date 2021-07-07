@@ -8,7 +8,7 @@ module regPc(clk,en,rst,npc,apc);
     assign apc = pc;
     
     always @(posedge clk) begin
-        if (rst) pc = 0;
+        if (rst=='b0) pc = 0;
         else begin
             if (en) pc = npc;
             else pc = pc;

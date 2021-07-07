@@ -25,15 +25,15 @@ module immGen (
                 if (ins[24] == 'b1)begin
                     imm = {20'hfffff,ins[24:13]};
                 end else begin
-                     imm = {20'b0,ins[24:12]};
+                     imm = {20'b0,ins[24:13]};
                 end
             end 
             //2: imm = {27'b0,ins[17:13]}; s
             2:begin
                 if (ins[24] == 'b1)begin
-                    imm = {20'hfffff,ins[24:18],ins[6:0]};
+                    imm = {20'hfffff,ins[24:18],ins[4:0]};
                 end else begin
-                     imm = {20'h0,ins[24:18],ins[6:0]};
+                     imm = {20'h0,ins[24:18],ins[4:0]};
                 end
             end 
             3: begin    //b

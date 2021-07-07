@@ -64,11 +64,11 @@ interface:
                     else        pc_sel = 'b0;
                 end
                 'b101:begin                         //bge
-                    if(brlt=='b0 && breq =='b0)    pc_sel = 'b1;    
+                    if(brlt=='b0 )    pc_sel = 'b1;    
                     else        pc_sel = 'b0;
                 end
                 3'b111:begin                         //bgeu
-                    if(brlt=='b0 && breq =='b0)    pc_sel = 'b1;    
+                    if(brlt=='b0 )    pc_sel = 'b1;    
                     else        pc_sel = 'b0;
                 end
                 default: pc_sel = 'b0;
