@@ -1,12 +1,20 @@
 module top (
-    input clk,
+    input clk_b,
     input halt,
     input rst,
     output [31:0] wb_data,
+    output [4:0] wb_addr,
     output [31:0] alc
 );
     wire [2:0] wb_sel,imm_op,alu_op;
     wire [31:0] pc,pc4,npc,ins,imm,rf_wdata,data1,data2,aluc,dram_rdata,alua,alub;
+    cpuclk instance_name
+   (
+    // Clock out ports
+    .clk_out1(clk),     // output clk_out1
+   // Clock in ports
+    .clk_in1(clk_b));      // input clk_in1
+
     pcP4 apc4(pc,pc4);
     irom a_irom(pc,ins);
     pcSel pcmux(pc_sel,aluc,pc4,npc);
@@ -23,4 +31,5 @@ module top (
     dram adram(clk,aluc,data2,dram_wen,dram_rdata);
     assign alc = aluc;
     assign wb_data = rf_wdata;
+    assign wb_addr = ins[11:7];
 endmodule
