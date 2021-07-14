@@ -12,14 +12,13 @@ module buffer4 (
       if(~rst) begin   
           wb_en_o <= 'b0;
           wb_addr_o <= 'b0;
-          pc_o <= 'b0;
           wb_data_o <= 'b0;
       end else begin
-          wb_en_o <= wb_sel;
+          wb_en_o <= wb_en;
           wb_addr_o <= wb_addr; 
           wb_data_o <= wb_data;
       end
 end
     
 endmodule
-    end
+    

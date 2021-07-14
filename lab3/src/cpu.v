@@ -17,12 +17,12 @@ module cpu (
     wire [31:0] data2, alua, alub, imm,b2_imm,b3_imm;
     wire [1:0] wb_sel,b2_wb_sel,b3_wb_sel;
     wire [2:0] alu_op,b2_alu_op;
-    id(clk,b4_wb_addr,b4_wb_data,b4_rf_wen,b1_ins,b1_rpc,data2,alua,alub,imm,wb_sel,rf_wen,alu_op,dram_wen);
+    id aid(clk,b4_wb_addr,b4_wb_data,b4_rf_wen,b1_ins,b1_rpc,data2,alua,alub,imm,wb_sel,rf_wen,alu_op,dram_wen);
     wire [4:0] b2_wb_addr,b3_wb_addr,b4_wb_addr;
     wire [31:0] b2_alua,b2_alub,b2_data2,b3_data2,b2_pc,b3_pc;
     buffer2 buff2(clk,rst,alua,alub,alu_op,dram_wen,data2,wb_sel,b1_ins[11:7],b1_rpc,imm,rf_wen,b2_alua,b2_alub,b2_alu_op,b2_dram_wen,b2_data2,b2_wb_sel,b2_wb_addr,b2_pc,b2_imm,b2_rf_wen);
     wire [31:0] aluc,b3_aluc;
-    alu aalu(b2_alua,b2_alub,aluc);
+    alu aalu(b2_alua,b2_alub,b2_alu_op,aluc);
     buffer3 buff3(clk,rst,b2_wb_sel,b2_wb_addr,b2_pc,aluc,b2_dram_wen,b2_data2,b2_imm,b2_rf_wen,b3_wb_sel,b3_wb_addr,b3_pc,b3_aluc,b3_dram_wen,b3_data2,b3_imm,b3_rf_wen);
     assign x_addr = b3_aluc[15:0];
     assign x_dram_wen = b3_dram_wen;

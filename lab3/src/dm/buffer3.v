@@ -15,7 +15,7 @@ module buffer3 (
     output reg [31:0] aluc_o,
     output reg dram_wen_o,
     output reg [31:0] data2_o,
-    output reg [31:9] imm_o
+    output reg [31:0] imm_o,
     output reg rf_wen_o
 );
 always @(posedge clk) begin
