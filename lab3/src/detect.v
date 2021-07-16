@@ -1,44 +1,45 @@
 module detect (
-    input rst,
-    input [4:0] if_rs1,
-    input [4:0] if_rs2,
-    input [4:0] id_rd,
+    input [4:0] id_rs1,
+    input [4:0] id_rs2,
     input [4:0] ex_rd,
     input [4:0] dm_rd,
-    input  id_en,
+    input [4:0] wb_rd,
     input  ex_en,
     input  dm_en,
-    output reg halt_if,
-    output reg halt_id,
-    output reg halt_ex,
+    input  wb_en,
+    output reg [1:0] rs1_sel,
+    output reg [1:0] rs2_sel
 );
 always @(*) begin
-    if (rst == 'b0)begin
-        halt_if = 0;
-        halt_id = 0;
-        halt_ex = 0;
-    end else begin
-        if( id_en && (id_rd==if_rs1 || id_rd==if_rs1) ) begin
-            halt_if = 1;
-            halt_id = 1;
-            halt_ex = 1;
+       if(ex_en) begin
+            if(ex_rd == id_rs1) rs1_sel = 1;
+            else rs1_sel = 0;
         end
-        else if(ex_en && (ex_rd==if_rs1 || ex_rd==if_rs1))begin
-            halt_if = 1;
-            halt_id = 1;
-            halt_ex = 0;
+        else if (dm_en) begin 
+            if(dm_rd == id_rs1) rs1_sel = 2;
+            else rs1_sel = 0;
+        end 
+        else if (wb_en) begin 
+            if(wb_rd == id_rs1) rs1_sel = 3;
+            else rs1_sel = 0;
+        end 
+        else rs1_sel = 0;
+end
+
+always @(*) begin
+       if(ex_en) begin
+            if(ex_rd == id_rs2) rs2_sel = 1;
+            else rs2_sel = 0;
         end
-        else if(dm_en && (dm_rd==if_rs1 || dm_rd==if_rs1))begin
-            halt_if = 1;
-            halt_id = 0;
-            halt_ex = 0;
-        end
-        else begin
-            halt_if = 0;
-            halt_id = 0;
-            halt_ex = 0;
-        end
-    end
+        else if (dm_en) begin 
+            if(dm_rd == id_rs2) rs2_sel = 2;
+            else rs2_sel = 0;
+        end 
+        else if (wb_en) begin 
+            if(wb_rd == id_rs2) rs2_sel = 3;
+            else rs2_sel = 0;
+        end 
+        else rs2_sel = 0;
 end
     
 endmodule
