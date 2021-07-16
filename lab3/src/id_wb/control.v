@@ -62,7 +62,7 @@ interface:
     end
     // handle rf_wen 
     always @(*) begin
-        if (typpp =='b100 || typpp == 'b011)  rf_wen = 'b0;
+        if (typpp =='b100 || typpp == 'b011 || ins[6:0] == 'b1111111)  rf_wen = 'b0;
         else rf_wen = 'b1;
     end
     //handle alua_sel 

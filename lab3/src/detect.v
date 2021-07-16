@@ -8,11 +8,15 @@ module detect (
     input  dm_en,
     input  wb_en,
     output reg [1:0] rs1_sel,
-    output reg [1:0] rs2_sel
+    output reg [1:0] rs2_sel,
+    input  [1:0] wb_sel,
+    output reg lu_halt
 );
 always @(*) begin
        if(ex_en) begin
-            if(ex_rd == id_rs1) rs1_sel = 1;
+            if(ex_rd == id_rs1)begin
+                rs1_sel = 1;  
+            end 
             else rs1_sel = 0;
         end
         else if (dm_en) begin 
@@ -41,5 +45,9 @@ always @(*) begin
         end 
         else rs2_sel = 0;
 end
-    
+    always @(*) begin
+        if (ex_en && wb_sel == 3 &&(ex_rd == id_rs1 || exrd == id_rs2)) lu_halt = 1;
+        else lu_halt = 0;
+        
+    end
 endmodule
