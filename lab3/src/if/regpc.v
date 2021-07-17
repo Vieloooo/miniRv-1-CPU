@@ -6,7 +6,7 @@ module regpc(clk,rst,npc,apc);
     reg [31:0] pc='b0;
     assign apc = pc;
     
-    always @(posedge clk or negedge rst) begin
+    always @(posedge clk ) begin
         if (rst=='b0) pc <= 0;
         else begin
             pc <= npc; 
