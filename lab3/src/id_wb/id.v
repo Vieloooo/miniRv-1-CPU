@@ -22,6 +22,6 @@ module id (
     control cu(ins,wb_sel,imm_op,rf_wen,alu_op,alua_sel,alub_sel,dram_wen);
     immGen im(imm_op,ins[31:7],imm);
     branch br(data1,data2,breq,brlt);
-    pc_gen pc_generator(ins[6:0],ns[14:12],pc,data1,imm,breq,brlt,pc_sel,npc);
+    pc_gen pc_generator(ins[6:0],ins[14:12],pc,data1,imm,breq,brlt,pc_sel,npc);
    
 endmodule

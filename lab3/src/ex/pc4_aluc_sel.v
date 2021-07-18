@@ -4,5 +4,5 @@ module pc4_aluc_sel (
     input wb_sel,
     output [31:0] for_id
 );
-    assign for_id = (~wb_sel) (pc+4):aluc;
+    assign for_id = (~wb_sel) ? (pc+4):aluc;
 endmodule

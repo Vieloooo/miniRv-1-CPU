@@ -3,10 +3,11 @@ module pc (
     input rst,
     input [31:0] xpc,
     input pc_sel,
-    output [31:0] rpc
+    output [31:0] rpc,
+    input halt
 );
     wire [31:0] npc;
     assign npc = (~pc_sel) ? (rpc+4):xpc;
-regpc aregpc(clk,rst,npc,rpc);
+regpc aregpc(clk,rst,npc,rpc,halt);
     
 endmodule

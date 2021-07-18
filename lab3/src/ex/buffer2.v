@@ -38,16 +38,16 @@ always @(posedge clk) begin
           imm_o <= 'b0;
           rf_wen_o <= 'b0;
       end else begin
-          alua_o = alua;
-          alub_o = alub;
-          alu_sel_o = alu_sel;
+          alua_o <= alua;
+          alub_o <= alub;
+          alu_sel_o <= alu_sel;
           dram_wen_o <= dram_wen;
           data2_o <= data2;
           wb_sel_o <= wb_sel;
           wb_addr_o <= wb_addr; 
           pc_o <= pc;
           imm_o <= imm;
-          rf_wen_o <= rf_wen;
+          rf_wen_o <= rf_wen;     
       end
 end
     

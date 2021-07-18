@@ -7,7 +7,7 @@ module pc_gen (
     input breq,
     input brlt,
     output reg pc_sel,
-    output reg [31:0] npc,
+    output reg [31:0] npc
 );
     always @(*) begin
           if (op7 == 'b1100111 || op7 == 'b1101111) pc_sel =1;

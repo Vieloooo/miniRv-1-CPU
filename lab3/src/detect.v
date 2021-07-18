@@ -13,40 +13,22 @@ module detect (
     output reg lu_halt
 );
 always @(*) begin
-       if(ex_en) begin
-            if(ex_rd == id_rs1)begin
-                rs1_sel = 1;  
-            end 
-            else rs1_sel = 0;
-        end
-        else if (dm_en) begin 
-            if(dm_rd == id_rs1) rs1_sel = 2;
-            else rs1_sel = 0;
-        end 
-        else if (wb_en) begin 
-            if(wb_rd == id_rs1) rs1_sel = 3;
-            else rs1_sel = 0;
-        end 
-        else rs1_sel = 0;
+      if(ex_en && ex_rd == id_rs1)rs1_sel = 1;
+      else if(dm_en && dm_rd == id_rs1) rs1_sel =2;
+      else if (wb_en && wb_rd == id_rs1) rs1_sel=3;
+      else rs1_sel =0;
+      
 end
 
 always @(*) begin
-       if(ex_en) begin
-            if(ex_rd == id_rs2) rs2_sel = 1;
-            else rs2_sel = 0;
-        end
-        else if (dm_en) begin 
-            if(dm_rd == id_rs2) rs2_sel = 2;
-            else rs2_sel = 0;
-        end 
-        else if (wb_en) begin 
-            if(wb_rd == id_rs2) rs2_sel = 3;
-            else rs2_sel = 0;
-        end 
-        else rs2_sel = 0;
+      if(ex_en && ex_rd == id_rs2)rs2_sel = 1;
+      else if(dm_en && dm_rd == id_rs2) rs2_sel =2;
+      else if (wb_en && wb_rd == id_rs2) rs2_sel=3;
+      else rs2_sel =0;
+      
 end
     always @(*) begin
-        if (ex_en && wb_sel == 3 &&(ex_rd == id_rs1 || exrd == id_rs2)) lu_halt = 1;
+        if (ex_en && wb_sel == 2 && (ex_rd == id_rs1 || ex_rd == id_rs2)) lu_halt = 1;
         else lu_halt = 0;
         
     end
