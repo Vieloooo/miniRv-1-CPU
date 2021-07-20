@@ -1,4 +1,7 @@
 vivado_lab2/
 vivado_lab3/
 onboard/
-lab3/mycpu/
+trace_v/
+io_device_v/
+final_ob/
+io/

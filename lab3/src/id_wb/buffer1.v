@@ -6,7 +6,8 @@ module buffer1 (
     input [31:0] if_pc,
     output reg [31:0] ifIns,
     output reg [31:0] ifPc,
-    input halt
+    input halt,
+    output reg have_ins
 );
     always @(posedge clk) begin
         if(~rst) ifPc <= 'b0;
@@ -22,4 +23,11 @@ module buffer1 (
             else ifIns <= if_ins;
         end 
      end
+      always @(posedge clk) begin
+        if(~rst) have_ins <= 'b0;
+        else begin 
+            if (halt) have_ins <=have_ins;
+            else have_ins <= 1;
+        end 
+    end
 endmodule

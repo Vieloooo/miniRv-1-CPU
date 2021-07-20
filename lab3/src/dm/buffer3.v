@@ -16,7 +16,9 @@ module buffer3 (
     output reg dram_wen_o,
     output reg [31:0] data2_o,
     output reg [31:0] imm_o,
-    output reg rf_wen_o
+    output reg rf_wen_o,
+    input have_ins,
+    output reg have_ins_o
 );
 always @(posedge clk) begin
       if(~rst) begin   
@@ -28,6 +30,7 @@ always @(posedge clk) begin
           data2_o <= 'b0;
           imm_o <= 'b0;
           rf_wen_o <= 'b0;
+          have_ins_o <=0;
       end else begin
           wb_sel_o <= wb_sel;
           wb_addr_o <= wb_addr; 
@@ -37,6 +40,7 @@ always @(posedge clk) begin
           data2_o <= data2;
           imm_o <= imm;
           rf_wen_o <= rf_wen;
+          have_ins_o <= have_ins;
       end
 end
     

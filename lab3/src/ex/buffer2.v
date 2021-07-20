@@ -23,13 +23,15 @@ module buffer2 (
     output reg [4:0] wb_addr_o,
     output reg [31:0] pc_o,
     output reg [31:0] imm_o,
-    output reg rf_wen_o
+    output reg rf_wen_o,
+    input   have_ins,
+    output reg have_ins_o
 );
 always @(posedge clk) begin
       if(~rst) begin
-          alua_o = 'b0;
-          alub_o = 'b0;
-          alu_sel_o = 'b0;
+          alua_o <= 'b0;
+          alub_o <= 'b0;
+          alu_sel_o <= 'b0;
           dram_wen_o <= 'b0;
           data2_o <= 'b0;
           wb_sel_o <= 'b0;
@@ -37,6 +39,7 @@ always @(posedge clk) begin
           pc_o <= 'b0;
           imm_o <= 'b0;
           rf_wen_o <= 'b0;
+          have_ins_o <= 0;
       end else begin
           alua_o <= alua;
           alub_o <= alub;
@@ -47,7 +50,8 @@ always @(posedge clk) begin
           wb_addr_o <= wb_addr; 
           pc_o <= pc;
           imm_o <= imm;
-          rf_wen_o <= rf_wen;     
+          rf_wen_o <= rf_wen;   
+          have_ins_o <= have_ins;  
       end
 end
     
